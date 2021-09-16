@@ -120,6 +120,35 @@ data class Planet (
     @JsonProperty("url") val url: String
 )
 ```
+**For json that don't necessarily contain a key, or its type can be either the expected type or null, you need to write that type as nullable in the representation of that json.**
+Example of the above situation:
+```json
+[
+   {
+      "cat":"meow"
+   },
+   {
+      "dog":"woof",
+      "cat":"meow"
+   },
+   {
+      "fish":"meow",
+      "cat":"f"
+   }
+]
+```
+It's representation would be:
+```kotlin
+data class Example (
+    @JsonProperty("cat") val cat: String,
+    @JsonProperty("dog") val dog: String?,
+    @JsonProperty("fish") val fish: String?
+)
+```
+As you can see, `dog` and `fish` are nullable because they are properties that are missing in an item. <br/>
+Whilst `cat` is not nullable because it is available in all of the items. <br/>
+Basic nullable detection is implemented in [json2kt](https://arjixwastaken.github.io/) so its recommended to use that. <br/>
+But it is very likely that it might fail to detect some nullable types, so it's up to us to validate the generated code.
 
 Second step to parsing json is...to just call our `mapper` instance.
 ```kotlin
@@ -130,5 +159,5 @@ We have successfully parsed our json within kotlin. <br/>
 One thing to note is that you don't need to add all of the json key/value pairs to the structure, you can just have what you need.
 
 ### Note
-Even though we set `DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES` as `false` it will still error on missing properties.
+Even though we set `DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES` as `false` it will still error on missing properties. <br/>
 If a json may or may not include some info, make those properties as nullable in the structure you build.
