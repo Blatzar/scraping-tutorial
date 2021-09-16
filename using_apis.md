@@ -6,6 +6,7 @@ Anyways, this guide won't teach the same concepts over and over again, <br/>
 so if you can't even make requests to an API then this will not tell you how to do that.
 
 Refer to [starting.md](./starting.md) on how to make http/https requests.
+And yes, this guide expects you to have basic knowledge on both Python and Kotlin.
 
 ### Using an API (and parsing json)
 So, the API I will use is the [SWAPI](https://swapi.dev/). <br/>
