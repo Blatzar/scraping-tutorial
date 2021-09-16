@@ -43,7 +43,7 @@ json = requests.get(url).json()
 ```
 Now, that is way too simple in python, sadly I am here to get your hopes down, and say that its not as simple in kotlin. <br/>
 
-First of all, we are going to use a library named Jackson by FastXML. <br/>
+First of all, we are going to use a library named Jackson by FasterXML. <br/>
 In build.gradle:
 ```
 repositories {
