@@ -120,7 +120,7 @@ data class Planet (
     @JsonProperty("url") val url: String
 )
 ```
-**For json that don't necessarily contain a key, or its type can be either the expected type or null, you need to write that type as nullable in the representation of that json.**
+**For json that don't necessarily contain a key, or its type can be either the expected type or null, you need to write that type as nullable in the representation of that json.** <br/>
 Example of the above situation:
 ```json
 [
