@@ -86,7 +86,7 @@ The next step is to...write down the structure of our json!
 This is the boring part for some, but it can be automated by using websites like [json2kt](https://arjixwastaken.github.io/)
 <br/><br/>
 
-First step to declaring the structure for a json is to import the JsonPropery annotation.
+First step to declaring the structure for a json is to import the JsonProperty annotation.
 ```kotlin
 import com.fasterxml.jackson.annotation.JsonProperty
 ```
