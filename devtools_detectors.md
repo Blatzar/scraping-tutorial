@@ -56,7 +56,7 @@ This is why I tracked down the functions making devtools detection possible in t
 
 **Linux build**: //TODO
 
-**Windows build**: //TODO
+**Windows build**: https://mega.nz/file/NHJQnZZS#K1GXxZyAGeGyzAFoTWJhBe897gMVUzaHJRh6smKDT_Y
 
 about:config `devtools.console.bypass` disables the console which invalidates **method 2**. 
 
