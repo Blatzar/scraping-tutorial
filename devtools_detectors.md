@@ -1,5 +1,4 @@
-**TL;DR**: You are going to get fucked by sites detecting your devtools, the best bypass for this is using my firefox fork (or compiling firefox yourself with the bypasses below).
-
+**TL;DR**: You are going to get fucked by sites detecting your devtools, the best bypass for this is using [a web sniffer extension](https://chrome.google.com/webstore/detail/web-sniffer/ndfgffclcpdbgghfgkmooklaendohaef?hl=en)
 
 Many sites use some sort of debugger detection to prevent you from looking at the important requests made by the browser.
 
@@ -51,8 +50,9 @@ This function can be tracked down to this [script](https://github.com/javascript
 
 I do not actually know how this works, but the loop seems gets triggered in the presence of a debugger. Either way this instantly freezes the webpage in firefox and makes it very unresponsive in chrome and does not rely on `console.log()`. You could bypass this by doing `const _0x39426c = null` in violentmonkey, but this bypass is not doable with heavily obfuscated js.
 
+If you just want to see the network log that is possible with extensions, see [Web Sniffer](https://chrome.google.com/webstore/detail/web-sniffer/ndfgffclcpdbgghfgkmooklaendohaef?hl=en)
 
-This is why I tracked down the functions making devtools detection possible in the firefox source code and compiled a version which is undetectable by any of these tools.
+I tracked down the functions making devtools detection possible in the firefox source code and compiled a version which is undetectable by any of these tools.
 
 **Linux build**: //TODO
 
