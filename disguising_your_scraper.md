@@ -86,7 +86,7 @@ class YourScraperSession(httpx.Client):
             else:
                 token = hcaptcha.get_hsl_token(self, response, hcaptcha_sk)
             
-            setattr(response, 'hcaptcha_token', type_of)
+            setattr(response, 'hcaptcha_token', token)
 
         recaptcha_sk, type_of = grecaptcha.sitekey_on_site(self, response)
 
@@ -96,7 +96,7 @@ class YourScraperSession(httpx.Client):
             else:
                 token = type_of
 
-            setattr(response, 'grecaptcha_token', type_of)
+            setattr(response, 'grecaptcha_token', token)
             
         return response
 ```
