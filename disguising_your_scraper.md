@@ -166,7 +166,7 @@ Task: Bypass a donkey check with your human.
 
 Now the problem is, the ribbon is not a human but still needs to come back. How does a normal human do this? Wear the ribbon.
 
-Wearning the ribbon is `setattr`. We can wear the ribbon everywhere. Leg, foot, butt.. you name it. No matter where you put it, you get the ribbon, so just be a bit reasonable with it. Like a decent developer and a decent human, wear the ribbon on the left side of your chest. In the code above, this reasonable place is `<captcha_name>_token`.
+Wearing the ribbon is `setattr`. We can wear the ribbon everywhere. Leg, foot, butt.. you name it. No matter where you put it, you get the ribbon, so just be a bit reasonable with it. Like a decent developer and a decent human, wear the ribbon on the left side of your chest. In the code above, this reasonable place is `<captcha_name>_token`.
 
 Let's get out of this donkey business.
 
