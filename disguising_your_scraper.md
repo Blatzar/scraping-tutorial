@@ -47,15 +47,51 @@ In Python, `requests` and `httpx` have differences.
 <Response [200 OK]>
 ```
 
+As we can see, the former response is a 403. This is a forbidden response and generally specifies that the content is not present. The latter however is a 200, OK response. In this response, content is available.
+
 This is the result of varying internal mechanisms. 
 
 The only cons to `httpx` in this case might be the fact that it has fully encoded headers, whilst `requests` does not. This means header keys consisting of non-ASCII characters may not be able to bypass some sites.
 
 <h3>Response handling algorithms</h3>
 
-You may encounter obstructions such as Cloudflare, hCaptcha, ReCaptcha. Assuming the below hypothetical code that you happen to own. You can override the session and deal with these things without having to worry about making any changes in your code per site.
+A session class is an object available in many libraries. This thing is like a house for your outgoing and incoming responses. A well written library has a session class that even accounts for appropriate cookie handling. Meaning, if you ever send a request to a site you need not need to worry about the cookies of that site for the next site you visit.
+
+No matter how cool session classes may be, at the end of the day, they are mere objects. That means, you, as a user can easily change what is within it. (This may require a high understanding of the library and the language)
+
+This is done through inheritance. You inherit a session class and modify what's within.
+
+For example:
 
 ```py
+class QuiteANoise(httpx.Client):
+
+    def request(self, *args, **kwargs):
+        print("Ooh, I got a request with arguments: {!r}, and keyword arguments: {!r}.".format(args, kwargs))
+        response = super().request(*args, **kwargs)
+        print("That request has a {!r}!".format(response))
+        return response
+```
+
+In the above inherited session, what we do is *quite noisy*. We announced a request that is about to be sent and a response that was just recieved.
+
+`super`, in Python, allows you to get the class that the current class inherits.
+
+Do not forget to return your `response`, else your program will be dumbfounded since nothing ever gets out of your request!
+
+So, we're going to abuse this fancy technique to effectively bypass some hinderances.
+
+Namely `hCaptcha`, `reCaptcha` and `Cloudflare`.
+
+```py
+"""
+This code is completely hypothetical, you probably 
+do not have a hCaptcha, reCaptcha and a Cloudflare
+bypass. 
+
+This code is a mere reference and may not suffice
+your need.
+"""
 from . import hcaptcha
 from . import grecaptcha
 
@@ -75,7 +111,7 @@ class YourScraperSession(httpx.Client):
                 return self.request(self, *args, **kwargs)
 
             # Further methods to bypass something else.
-            return self.request(self, *args, **kwargs)
+            return self.request(self, *args, **kwargs) # psssssst. RECURSIVE HELL, `return response` is safer
 
 
         hcaptcha_sk, type_of = hcaptcha.deduce_sitekey(self, response)
@@ -100,3 +136,52 @@ class YourScraperSession(httpx.Client):
             
         return response
 ```
+
+So, let's see what happens here.
+
+Firstly, we check whether the response has a error or not. This is done by checking if the response's status code is **greater than or equal to** 400.
+
+After this, we check if the site has Cloudflare, if the site has Cloudflare, we let the hypothetical function do its magic and give us the bypass cookies. Then after, we update our session class' cookie. Cookie vary across sites but in this case, our hypothetical function will take the session and make it so that the cookie only applies to that site url within and with the correct headers.
+
+After a magical cloudflare bypass (people wish they have this, you will too, probably.), we call the overridden function `.request` again to ensure the response following this will be bypassed to. This is recursion. 
+
+If anything else is required, you should add your own code to execute bypasses so that your responses will be crisp and never error-filled.
+
+Else, we just return the fresh `.request`.
+
+Keep in mind that if you cannot bypass the 400~ error, your responses might end up in a permanent recursive hell, at least in the code above.
+
+To not make your responses never return, you might want to return the non-bypassed response.
+
+The next part mainly focuses on CAPTCHA bypasses and what we do is quite simple. A completed CAPTCHA *usually* always returns a token. 
+
+Returning this token with the response is not a good idea as the entire return type will change. We use a sneaky little function here. Namely `setattr`. What this does is, it sets an attribute of an object.
+
+The algorithm in easier terms is:
+
+Task: Bypass a donkey check with your human.
+
+- Yell "hee~haw". (Prove that you're a donkey, this is how the hypothetical functions work.)
+- Be handed the ribbon. (In our case, this is the token.)
+
+Now the problem is, the ribbon is not a human but still needs to come back. How does a normal human do this? Wear the ribbon.
+
+Wearning the ribbon is `setattr`. We can wear the ribbon everywhere. Leg, foot, butt.. you name it. No matter where you put it, you get the ribbon, so just be a bit reasonable with it. Like a decent developer and a decent human, wear the ribbon on the left side of your chest. In the code above, this reasonable place is `<captcha_name>_token`.
+
+Let's get out of this donkey business.
+
+After this reasonable token placement, we get the response back.
+
+This token can now, always be accessed in reasonable places, reasonably.
+
+
+```py
+client = YourScraperSession()
+
+bypassed_response = client.get("https://kwik.cx/f/2oHQioeCvHtx")
+print(bypassed_response.hcaptcha_token)
+```
+
+Keep in mind that if there is no ribbon/token, there is no way of reasonable way of accessing it.
+
+In any case, this is how you, as a decent developer, handle the response properly.
