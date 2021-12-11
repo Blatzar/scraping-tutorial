@@ -55,11 +55,11 @@ The only cons to `httpx` in this case might be the fact that it has fully encode
 
 <h3>Response handling algorithms</h3>
 
-A session class is an object available in many libraries. This thing is like a house for your outgoing and incoming responses. A well written library has a session class that even accounts for appropriate cookie handling. Meaning, if you ever send a request to a site you need not need to worry about the cookies of that site for the next site you visit.
+A session class is an object available in many libraries. This thing is like a house for your outgoing requests and incoming responses. A well written library has a session class that even accounts for appropriate cookie handling. Meaning, if you ever send a request to a site you need not need to worry about the cookie of that site for the next site you visit.
 
-No matter how cool session classes may be, at the end of the day, they are mere objects. That means, you, as a user can easily change what is within it. (This may require a high understanding of the library and the language)
+No matter how cool session classes may be, at the end of the day, they are mere objects. That means, you, as a user can easily change what is within it. (This may require a high understanding of the library and the language.)
 
-This is done through inheritance. You inherit a session class and modify what's within.
+This is done through inheritance. You inherit a session class and modify whats within.
 
 For example:
 
@@ -153,7 +153,7 @@ Keep in mind that if you cannot bypass the 400~ error, your responses might end 
 
 To not make your responses never return, you might want to return the non-bypassed response.
 
-The next part mainly focuses on CAPTCHA bypasses and what we do is quite simple. A completed CAPTCHA *usually* always returns a token. 
+The next part mainly focuses on CAPTCHA bypasses and what we do is quite simple. A completed CAPTCHA *usually* returns a token. 
 
 Returning this token with the response is not a good idea as the entire return type will change. We use a sneaky little function here. Namely `setattr`. What this does is, it sets an attribute of an object.
 
@@ -182,6 +182,6 @@ bypassed_response = client.get("https://kwik.cx/f/2oHQioeCvHtx")
 print(bypassed_response.hcaptcha_token)
 ```
 
-Keep in mind that if there is no ribbon/token, there is no way of reasonable way of accessing it.
+Keep in mind that if there is no ribbon/token, there is no way of reasonably accessing it.
 
 In any case, this is how you, as a decent developer, handle the response properly.
