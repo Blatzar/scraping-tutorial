@@ -83,7 +83,7 @@ val mapper: JsonMapper = JsonMapper.builder().addModule(KotlinModule())
 ```
 
 The next step is to...write down the structure of our json!
-This is the boring part for some, but it can be automated by using websites like [json2kt](https://arjixwastaken.github.io/)
+This is the boring part for some, but it can be automated by using websites like [json2kt](https://www.json2kt.com/) or [quicktype](https://app.quicktype.io/) to generate the entire code for you.
 <br/><br/>
 
 First step to declaring the structure for a json is to import the JsonProperty annotation.
@@ -147,7 +147,7 @@ data class Example (
 ```
 As you can see, `dog` and `fish` are nullable because they are properties that are missing in an item. <br/>
 Whilst `cat` is not nullable because it is available in all of the items. <br/>
-Basic nullable detection is implemented in [json2kt](https://arjixwastaken.github.io/) so its recommended to use that. <br/>
+Basic nullable detection is implemented in [json2kt](https://www.json2kt.com/) so its recommended to use that. <br/>
 But it is very likely that it might fail to detect some nullable types, so it's up to us to validate the generated code.
 
 Second step to parsing json is...to just call our `mapper` instance.
