@@ -4,7 +4,7 @@ Now you know the basics, enough to scrape most stuff from most sites, but not st
 Because of the high costs of video hosting the video providers really don't want anyone scraping the video and bypassing the ads.
 This is why they often obfuscate, encrypt and hide their links which makes scraping really hard.
 Some sites even put V3 Google Captcha on their links to prevent scraping while the majority IP/time/referer lock the video links to prevent sharing.
-You will almost never find a plain <video> element with a mp4 link.
+You will almost never find a plain \<video\> element with a mp4 link.
 
 **This is why you should always scrape the video first when trying to scrape a video hosting site. Sometimes getting the video link can be too hard.**
 
