@@ -64,7 +64,7 @@ about:config `devtools.debugger.bypass` completely disables the debugger and a l
 
 If you want to compile firefox yourself with these bypasses you can, using the line changes below in the described files. You can probably make these bypasses a lot less destructive.
 
-**BUILD: 94.0a1 (2021-09-09)**
+**BUILD: 94.0a1 (2021-09-09)** (UPDATE: I don't these code changes are enough in the latest firefox version)
 `./devtools/server/actors/thread.js`
 At line 190
 ```js
