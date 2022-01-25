@@ -60,17 +60,17 @@ I tracked down the functions making devtools detection possible in the firefox s
 
 about:config `devtools.console.bypass` disables the console which invalidates **method 2**. 
 
-about:config `devtools.debugger.bypass` completely disables the debugger and a lot more in the devtools, this should only be used to bypass **method 3**. 
+about:config `devtools.debugger.bypass` completely disables the debugger and the html inspector, this should only be used to bypass **method 3**. 
 
-If you want to compile firefox yourself with these bypasses you can, using the line changes below in the described files. You can probably make these bypasses a lot less destructive.
+If you want to compile firefox yourself with these bypasses you can, using the line changes below in the described files.
 
-**BUILD: 94.0a1 (2021-09-09)** (UPDATE: I don't these code changes are enough in the latest firefox version)
+**BUILD: 96.0a1 (2021-11-30)**
 `./devtools/server/actors/thread.js`
-At line 190
+At line 199
 ```js
-let devtoolsBypass = Services.prefs.getBoolPref("devtools.debugger.bypass", true);
-const ThreadActor = devtoolsBypass ? null : ActorClassWithSpec(threadSpec, {
-  initialize(parent, global) {
+    let devtoolsBypass = Services.prefs.getBoolPref("devtools.debugger.bypass", true);
+    if (!devtoolsBypass)
+        this._state = STATES.DETACHED;
 ```
 
 `./devtools/server/actors/webconsole/listeners/console-api.js`
