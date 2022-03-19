@@ -4,6 +4,8 @@ As a start you can scrape the README.md
 
 I'll use khttp for the kotlin implementation because of the ease of use, if you want something company-tier I'd recommend OkHttp.
 
+(**Update**: I have made an okhttp wrapper **for android apps**, check out [NiceHttp](https://github.com/Blatzar/NiceHttp))
+
 
 # **1. Scraping the Readme** 
 
@@ -26,9 +28,7 @@ repositories {
 }
 
 dependencies {
-	...
-	...
-	...
+	// Other dependencies above
 	compile group: 'khttp', name: 'khttp', version: '1.0.0'
 }
 ```
@@ -57,7 +57,7 @@ or
 
 Right click and press *Inspect*
 
-In here you can look at all the network requests the browser is making and much more, but the important part currently is the HTML displayed. You need to find the HTML responsible for showing how many stars, but how? 
+In here you can look at all the network requests the browser is making and much more, but the important part currently is the HTML displayed. You need to find the HTML responsible for showing the project description, but how? 
 
 Either click the small mouse in the top left of the developer tools or press 
 
@@ -126,8 +126,7 @@ repositories {
 }
 
 dependencies {
-	...
-	...
+	// Other dependencies above
 	implementation "org.jsoup:jsoup:1.11.3"
 	compile group: 'khttp', name: 'khttp', version: '1.0.0'
 }
