@@ -221,3 +221,4 @@ fun main() {
     println(description)
 }
 ```
+### Next up: [Properly scraping JSON apis](https://github.com/Blatzar/scraping-tutorial/blob/master/using_apis.md)
