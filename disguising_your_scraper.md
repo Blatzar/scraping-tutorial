@@ -185,3 +185,5 @@ print(bypassed_response.hcaptcha_token)
 Keep in mind that if there is no ribbon/token, there is no way of reasonably accessing it.
 
 In any case, this is how you, as a decent developer, handle the response properly.
+
+### Next up: [Finding video links](https://github.com/Blatzar/scraping-tutorial/blob/master/finding_video_links.md)
