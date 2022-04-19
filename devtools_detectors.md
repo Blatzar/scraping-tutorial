@@ -5,6 +5,8 @@ Many sites use some sort of debugger detection to prevent you from looking at th
 You can test the devtools detector here: https://blog.aepkill.com/demos/devtools-detector/
 Code for the detector found here: https://github.com/AEPKILL/devtools-detector
 
+# How are they detecting the tools?
+
 One or more of the following methods are used to prevent devtools in the majority of cases (if not all):
 
 **1.**
@@ -20,7 +22,7 @@ This lets the site know the millisecond you bring up devtools. Doing `const cons
 If you can find the offending js responsible for the detection you can bypass it by redifining the function in violentmonkey, but I recommend against it since it's often hidden and obfuscated. The best way to bypass this issue is to re-compile firefox or chrome with a switch to disable the console.
 
 **3.**
-Fucking up the debugger with a `while (true) {}` loop. Looks something like this in the wild:
+Running a `while (true) {}` loop when the debugger object is present? Looks something like this in the wild:
 ```js
 function _0x39426c(e) {
     function t(e) {
@@ -49,6 +51,8 @@ setInterval(function() {
 This function can be tracked down to this [script](https://github.com/javascript-obfuscator/javascript-obfuscator/blob/6de7c41c3f10f10c618da7cd96596e5c9362a25f/src/custom-code-helpers/debug-protection/templates/debug-protection-function/DebuggerTemplate.ts)
 
 I do not actually know how this works, but the loop seems gets triggered in the presence of a debugger. Either way this instantly freezes the webpage in firefox and makes it very unresponsive in chrome and does not rely on `console.log()`. You could bypass this by doing `const _0x39426c = null` in violentmonkey, but this bypass is not doable with heavily obfuscated js.
+
+# How to bypass the detection?
 
 If you just want to see the network log that is possible with extensions, see [Web Sniffer](https://chrome.google.com/webstore/detail/web-sniffer/ndfgffclcpdbgghfgkmooklaendohaef?hl=en)
 
