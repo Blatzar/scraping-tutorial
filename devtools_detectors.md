@@ -1,4 +1,4 @@
-**TL;DR**: You are going to get fucked by sites detecting your devtools, the best bypass for this is using [a web sniffer extension](https://chrome.google.com/webstore/detail/web-sniffer/ndfgffclcpdbgghfgkmooklaendohaef?hl=en)
+**TL;DR**: You are going to get fucked by sites detecting your devtools, the easiest bypass for this is using [a web sniffer extension](https://chrome.google.com/webstore/detail/web-sniffer/ndfgffclcpdbgghfgkmooklaendohaef?hl=en)
 
 Many sites use some sort of debugger detection to prevent you from looking at the important requests made by the browser.
 
@@ -54,27 +54,28 @@ If you just want to see the network log that is possible with extensions, see [W
 
 I tracked down the functions making devtools detection possible in the firefox source code and compiled a version which is undetectable by any of these tools.
 
-**Linux build**: //TODO
+**Linux build**: https://mega.nz/file/YSAESJzb#x036cCtphjj9kB-kP_EXReTTkF7L7xN8nKw6sQN7gig
 
-**Windows build**: https://mega.nz/file/NHJQnZZS#K1GXxZyAGeGyzAFoTWJhBe897gMVUzaHJRh6smKDT_Y
+**Windows build**: https://mega.nz/file/NHJQnZZS#K1GXxZyAGeGyzAFoTWJhBe897gMVUzaHJRh6smKDT_Y (old version)
 
 about:config `devtools.console.bypass` disables the console which invalidates **method 2**. 
 
-about:config `devtools.debugger.bypass` completely disables the debugger and the html inspector, this should only be used to bypass **method 3**. 
+about:config `devtools.debugger.bypass` completely disables the debugger, useful to bypass **method 3**. 
 
 If you want to compile firefox yourself with these bypasses you can, using the line changes below in the described files.
 
-**BUILD: 96.0a1 (2021-11-30)**
+**BUILD: 101.0a1 (2022-04-19)**
 `./devtools/server/actors/thread.js`
-At line 199
+At line 390
 ```js
+  attach(options) {
     let devtoolsBypass = Services.prefs.getBoolPref("devtools.debugger.bypass", true);
-    if (!devtoolsBypass)
-        this._state = STATES.DETACHED;
+    if (devtoolsBypass)
+        return;
 ```
 
 `./devtools/server/actors/webconsole/listeners/console-api.js`
-At line 82
+At line 92
 ```js
 observe(message, topic) {
 let devtoolsBypass = Services.prefs.getBoolPref("devtools.console.bypass", true);
