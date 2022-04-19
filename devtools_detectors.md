@@ -56,7 +56,7 @@ I tracked down the functions making devtools detection possible in the firefox s
 
 **Linux build**: https://mega.nz/file/YSAESJzb#x036cCtphjj9kB-kP_EXReTTkF7L7xN8nKw6sQN7gig
 
-**Windows build**: https://mega.nz/file/NHJQnZZS#K1GXxZyAGeGyzAFoTWJhBe897gMVUzaHJRh6smKDT_Y (old version)
+**Windows build**: https://mega.nz/file/ZWAURAyA#qCrJ1BBxTLONHSTdE_boXMhvId-r0rk_kuPJWrPDiwg
 
 about:config `devtools.console.bypass` disables the console which invalidates **method 2**. 
 
@@ -91,3 +91,5 @@ At line 23
 pref("devtools.console.bypass", true);
 pref("devtools.debugger.bypass", true);
 ```
+
+### Next up: [Why your requests fail](https://github.com/Blatzar/scraping-tutorial/blob/master/disguising_your_scraper.md)
