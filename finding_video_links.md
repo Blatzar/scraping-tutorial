@@ -21,10 +21,10 @@ What you want to do is:
 
 Let's explain further:
 **Step 1**: Most sites use an iFrame system to show their videos. This is essentially loading a separate page within the page. 
-This is most evident in [Gogoanime](https://gogoanime.film/yakusoku-no-neverland-episode-1), link gets updated often, google the name and find their page if link isn't found.
+This is most evident in [Gogoanime](https://gogoanime.gg/yakusoku-no-neverland-episode-1), link gets updated often, google the name and find their page if link isn't found.
 The easiest way of spotting these iframes is looking at the network tab trying to find requests not from the original site. I recommend using the HTML filter.
 
-  ![finding](https://user-images.githubusercontent.com/46196380/149821806-7426ca0f-133f-4722-8e7f-ebae26ea2ef1.png)
+![finding](https://user-images.githubusercontent.com/46196380/149821806-7426ca0f-133f-4722-8e7f-ebae26ea2ef1.png)
   
 Once you have found the iFrame, in this case a fembed-hd link open it in another tab and work from there. (**Step 2**)
 If you only have the iFrame it is much easier to find the necessary stuff to generate the link since a lot of useless stuff from the original site is filtered out.
@@ -32,13 +32,13 @@ If you only have the iFrame it is much easier to find the necessary stuff to gen
 **Step 3**: Find the video link. This is often quite easy, either filter all media requests or simply look for a request ending in .m3u8 or .mp4
 What this allows you to do is limit exclude many requests (only look at the requests before the video link) and start looking for the link origin (**Step 4**).
 
-  ![video_link](https://user-images.githubusercontent.com/46196380/149821919-f65e2f72-b413-4151-a4a3-db7012e2ed18.png)
+![video_link](https://user-images.githubusercontent.com/46196380/149821919-f65e2f72-b413-4151-a4a3-db7012e2ed18.png)
   
 I usually search for stuff in the video link and see if any text/headers from the preceding requests contain it. 
 In this case fvs.io redirected to the mp4 link, now do the same steps for the fvs.io link to follow the request backwards to the origin. Like images are showing.
 
   
-  ![fvs](https://user-images.githubusercontent.com/46196380/149821967-00c01103-5b4a-48dd-be18-e1fdfb967e4c.png)
+![fvs](https://user-images.githubusercontent.com/46196380/149821967-00c01103-5b4a-48dd-be18-e1fdfb967e4c.png)
   
   
   
@@ -54,7 +54,8 @@ In this case fvs.io redirected to the mp4 link, now do the same steps for the fv
 
 ## **What to do when the site uses a captcha?**
 
-You pretty much only have 2 options when that happens:
+You pretty much only have 3 options when that happens:
 
 1. Try to use a fake / no captcha token. Some sites actually doesn't check that the captcha token is valid.
 2. Use Webview or some kind of browser in the background to load the site in your stead.
+3. Pray it's a captcha without payload, then it's possible to get the captcha key without a browser: [Code example](https://github.com/LagradOst/CloudStream-3/blob/ccb38542f4b5685e511824a975bf16190011c222/app/src/main/java/com/lagradost/cloudstream3/MainAPI.kt#L132-L181)
