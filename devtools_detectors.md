@@ -92,4 +92,4 @@ pref("devtools.console.bypass", true);
 pref("devtools.debugger.bypass", true);
 ```
 
-### Next up: [Why your requests fail](https://github.com/Blatzar/scraping-tutorial/blob/master/disguising_your_scraper.md)
+### Next up: [Evading developer tools detection](https://github.com/Blatzar/scraping-tutorial/blob/master/devtools_detectors.md)
