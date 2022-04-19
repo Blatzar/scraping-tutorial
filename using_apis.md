@@ -161,3 +161,5 @@ One thing to note is that you don't need to add all of the json key/value pairs 
 ### Note
 Even though we set `DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES` as `false` it will still error on missing properties. <br/>
 If a json may or may not include some info, make those properties as nullable in the structure you build.
+
+### Next up: [Evading developer tools detection](https://github.com/Blatzar/scraping-tutorial/blob/master/devtools_detectors.md)
