@@ -62,6 +62,8 @@ I tracked down the functions making devtools detection possible in the firefox s
 
 **Windows build**: https://mega.nz/file/ZWAURAyA#qCrJ1BBxTLONHSTdE_boXMhvId-r0rk_kuPJWrPDiwg
 
+**Mac build**: https://mega.nz/file/Df5CRJQS#azO61dpP0_xgR8k-MmHaU_ufBvbl8_DlYky46SNSI0s
+
 about:config `devtools.console.bypass` disables the console which invalidates **method 2**. 
 
 about:config `devtools.debugger.bypass` completely disables the debugger, useful to bypass **method 3**. 
