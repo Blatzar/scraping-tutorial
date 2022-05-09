@@ -1,7 +1,11 @@
 ## Requests based scraping tutorial
 
 
-You want to start scraping? Well this guide will teach you, and not some baby selenium scraping. This guide only uses raw requests and has examples in both python and kotlin. Only basic programming knowlege in one of those languages is required to follow along in the guide.
+You want to start scraping? Well this guide will teach you, and not some baby selenium scraping. This guide only uses raw requests and has examples in both python and kotlin. Only basic programming knowlege in one of those languages is required to follow along in the guide. 
+
+If you find any aspect of this guide confusing please open an issue about it and I will try to improve things.
+
+If you do not know programming at all then this guide will __not__ help you, learn programming first! Real scraping cannot be done by copy pasting with a vauge understanding.
 
 
 0. [Starting scraping from zero](https://github.com/Blatzar/scraping-tutorial/blob/master/starting.md)
