@@ -22,7 +22,7 @@ This lets the site know the millisecond you bring up devtools. Doing `const cons
 If you can find the offending js responsible for the detection you can bypass it by redifining the function in violentmonkey, but I recommend against it since it's often hidden and obfuscated. The best way to bypass this issue is to re-compile firefox or chrome with a switch to disable the console.
 
 **3.**
-Applying state to the debugger. Looks something like this in the wild:
+Invoking the debugger as a constructor? Looks something like this in the wild:
 ```js
 function _0x39426c(e) {
     function t(e) {
@@ -56,11 +56,11 @@ Cutting out all the unnessecary stuff the remaining function is the following:
 ```js
 setInterval(() => {
     for (let i = 0; i < 100_00; i++) {
-        _ = function() {}.constructor("debugger").apply("some text here");
+        _ = function() {}.constructor("debugger").call(); // also works with apply
     }
 }, 1e2);
 ```
-Basically running `.constructor("debugger").apply("some text here");` as much as possible without using while(true) (that locks up everything regardless).
+Basically running `.constructor("debugger").call();` as much as possible without using while(true) (that locks up everything regardless).
 
 # How to bypass the detection?
 
