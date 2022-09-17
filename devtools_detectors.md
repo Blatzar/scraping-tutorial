@@ -22,7 +22,7 @@ This lets the site know the millisecond you bring up devtools. Doing `const cons
 If you can find the offending js responsible for the detection you can bypass it by redifining the function in violentmonkey, but I recommend against it since it's often hidden and obfuscated. The best way to bypass this issue is to re-compile firefox or chrome with a switch to disable the console.
 
 **3.**
-Running a `while (true) {}` loop when the debugger object is present? Looks something like this in the wild:
+Applying state to the debugger. Looks something like this in the wild:
 ```js
 function _0x39426c(e) {
     function t(e) {
@@ -50,7 +50,17 @@ setInterval(function() {
 ```
 This function can be tracked down to this [script](https://github.com/javascript-obfuscator/javascript-obfuscator/blob/6de7c41c3f10f10c618da7cd96596e5c9362a25f/src/custom-code-helpers/debug-protection/templates/debug-protection-function/DebuggerTemplate.ts)
 
-I do not actually know how this works, but the loop seems gets triggered in the presence of a debugger. Either way this instantly freezes the webpage in firefox and makes it very unresponsive in chrome and does not rely on `console.log()`. You could bypass this by doing `const _0x39426c = null` in violentmonkey, but this bypass is not doable with heavily obfuscated js.
+This instantly freezes the webpage in firefox and makes it very unresponsive in chrome and does not rely on `console.log()`. You could bypass this by doing `const _0x39426c = null` in violentmonkey, but this bypass is not doable with heavily obfuscated js.
+
+Cutting out all the unnessecary stuff the remaining function is the following:
+```js
+setInterval(() => {
+    for (let i = 0; i < 100_00; i++) {
+        _ = function() {}.constructor("debugger").apply("some text here");
+    }
+}, 1e2);
+```
+Basically running `.constructor("debugger").apply("some text here");` as much as possible without using while(true) (that locks up everything regardless).
 
 # How to bypass the detection?
 
