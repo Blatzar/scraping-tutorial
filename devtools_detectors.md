@@ -68,7 +68,7 @@ If you just want to see the network log that is possible with extensions, see [W
 
 I tracked down the functions making devtools detection possible in the firefox source code and compiled a version which is undetectable by any of these tools.
 
-**Linux build**: https://mega.nz/file/YSAESJzb#x036cCtphjj9kB-kP_EXReTTkF7L7xN8nKw6sQN7gig
+**Linux build**: https://mega.nz/file/TOgTVKgC#6XkBXzm5a1fqBa5AMeaGMBHDlA5rL0roN2xSDJdD-KQ
 
 **Windows build**: https://mega.nz/file/ZWAURAyA#qCrJ1BBxTLONHSTdE_boXMhvId-r0rk_kuPJWrPDiwg
 
