@@ -158,6 +158,21 @@ And voila! <br/>
 We have successfully parsed our json within kotlin. <br/>
 One thing to note is that you don't need to add all of the json key/value pairs to the structure, you can just have what you need.
 
+**Shell**
+Here is how you could extract the values for the different keys in the json, using sed and tr:
+
+1) Extract the `climate` value:
+```sh
+curl "https://swapi.dev/api/planets/1/" | sed -nE "s/.*\"climate\":\"([^\"]*)\".*/\1/p" # note that we are using the [^\"]* pattern as a replacement for greedy matching in standard regex, as posix sed does not support greedy matching; we are also escaping the quotation mark
+```
+
+2) Extract all values for the `films` key:
+```sh
+curl "https://swapi.dev/api/planets/1/" | sed -nE "s/.*\"films\":\[([^]]*)\].*/\1/p" | sed "s/,/\n/g;s/\"//g"
+```
+
+Additionally, a pattern I recommend using when parsing json without `jq`, only using posix shell commands, is `tr ',' '\n'`. This makes the json easier to parse using sed.
+
 ### Note
 Even though we set `DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES` as `false` it will still error on missing properties. <br/>
 If a json may or may not include some info, make those properties as nullable in the structure you build.

@@ -58,4 +58,15 @@ You pretty much only have 3 options when that happens:
 
 1. Try to use a fake / no captcha token. Some sites actually doesn't check that the captcha token is valid.
 2. Use Webview or some kind of browser in the background to load the site in your stead.
-3. Pray it's a captcha without payload, then it's possible to get the captcha key without a browser: [Code example](https://github.com/LagradOst/CloudStream-3/blob/ccb38542f4b5685e511824a975bf16190011c222/app/src/main/java/com/lagradost/cloudstream3/MainAPI.kt#L132-L181)
+3. Pray it's a captcha without payload, then it's possible to get the captcha key without a browser:
+Here is a proof of concept code example of how you can get a captcha token programmatically (this can vary for various websites):
+```sh
+key=$(curl -s "$main_page" | sed -nE "s@.*recaptcha_site_key = '(.*)'.*@\1@p")
+co=$(printf "%s:443" "$main_page" | base64 | tr "=" ".")
+vtoken=$(curl -s "https://www.google.com/recaptcha/api.js?render=$key" | sed -nE "s_.*po\.src=.*releases/(.*)/recaptcha.*_\1_p")
+recaptcha_token=$(curl -s "https://www.google.com/recaptcha/api2/anchor?ar=1&hl=en\
+		&size=invisible&cb=cs3&k=${key}&co=${co}&v=${vtoken}" |
+  sed -nE 's_.*id="recaptcha-token" value="([^"]*)".*_\1_p')
+id=$(curl -s "$main_page/ajax/get_link/${provider_id}?_token=${recaptcha_token}" |
+    sed -nE 's_.*"link":".*/(.*)\?z=".*_\1_p')
+```
