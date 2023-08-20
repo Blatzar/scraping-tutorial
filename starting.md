@@ -182,7 +182,8 @@ fun main() {
 
 **Shell**
 ```sh
-curl "https://github.com/Blatzar/scraping-tutorial" | tr -d '\n' | sed -nE "s/.*<article class=\"markdown-body.*<\/path><\/svg>(.*)<\/article>.*/\1/p" # we use the tr -d '\n' command to delete all new lines from the input, since sed works on a line by line basis
+curl "https://github.com/Blatzar/scraping-tutorial" | tr -d '\n' |
+  sed -nE "s/.*<article class=\"markdown-body.*<\/path><\/svg>(.*)<\/article>.*/\1/p" # we use the tr -d '\n' command to delete all new lines from the input, since sed works on a line by line basis
 ```
 *Note*: 
 Although there are external libraries which can be used to parse html in shellscripts, such as htmlq and pup, these are often slower at parsing than sed (a built-in stream editor command on unix systems).
@@ -271,7 +272,8 @@ fun main() {
 **Shell**
 Here is an example of how html data can be parsed using sed with the extended regex flag:
 ```sh
-printf 'some html data then data-id="123" other data and title here: title="Foo Bar" and more html\n' | sed -nE "s/.*data-id=\"([0-9]*)\".*title=\"([^\"]*)\".*/Title: \2\nID: \1/p" # note that we use .* at the beginning and end of the pattern in order to avoid printing everything that preceeds and follows the actual patterns we are matching
+printf 'some html data then data-id="123" other data and title here: title="Foo Bar" and more html\n' |
+  sed -nE "s/.*data-id=\"([0-9]*)\".*title=\"([^\"]*)\".*/Title: \2\nID: \1/p" # note that we use .* at the beginning and end of the pattern in order to avoid printing everything that preceeds and follows the actual patterns we are matching
 ```
 
 # Closing words
