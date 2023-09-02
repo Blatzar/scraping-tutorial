@@ -181,10 +181,7 @@ fun main() {
 ```
 
 **Shell**
-```sh
-curl "https://github.com/Blatzar/scraping-tutorial" | tr -d '\n' |
-  sed -nE "s/.*<article class=\"markdown-body.*<\/path><\/svg>(.*)<\/article>.*/\1/p" # we use the tr -d '\n' command to delete all new lines from the input, since sed works on a line by line basis
-```
+In order to avoid premature heart attacks, the shell scraping example which relies on regex can be found in the regex section.
 *Note*: 
 Although there are external libraries which can be used to parse html in shellscripts, such as htmlq and pup, these are often slower at parsing than sed (a built-in stream editor command on unix systems).
 This is why using sed with the extended regex flag `-E` is a preferrable way of parsing scraped data when writing shellscripts.

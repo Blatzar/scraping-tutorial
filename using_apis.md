@@ -165,10 +165,13 @@ Here is how you could extract the values for the different keys in the json, usi
 ```sh
 curl "https://swapi.dev/api/planets/1/" | sed -nE "s/.*\"climate\":\"([^\"]*)\".*/\1/p" # note that we are using the [^\"]* pattern as a replacement for greedy matching in standard regex, as posix sed does not support greedy matching; we are also escaping the quotation mark
 ```
+The regex pattern above can be visualized as such:
+![Regex-visualizer](image.png)
 
-2) Extract all values for the `films` key:
+2) More advanced example:
+Extract all values for the `films` key:
 ```sh
-curl "https://swapi.dev/api/planets/1/" | sed -nE "s/.*\"films\":\[([^]]*)\].*/\1/p" | sed "s/,/\n/g;s/\"//g"
+curl "https://swapi.dev/api/planets/1/" | sed -nE "s/.*\"films\":\[([^]]*)\].*/\1/p" | sed "s/,/\n/g;s/\"//g" # the first sed pattern has the same logic as in the previous example. for the second one the semicolon character is used for separating 2 sed commands, meaning that this sample command can be translated to human language as: transform all (/g is the global flag, which means it'll perform for all instances on a single line and not just the first one) the commas into new lines, and also delete all quotation marks from the input
 ```
 
 Additionally, a pattern I recommend using when parsing json without `jq`, only using posix shell commands, is `tr ',' '\n'`. This makes the json easier to parse using sed.
