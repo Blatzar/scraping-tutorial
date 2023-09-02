@@ -166,7 +166,7 @@ Here is how you could extract the values for the different keys in the json, usi
 curl "https://swapi.dev/api/planets/1/" | sed -nE "s/.*\"climate\":\"([^\"]*)\".*/\1/p" # note that we are using the [^\"]* pattern as a replacement for greedy matching in standard regex, as posix sed does not support greedy matching; we are also escaping the quotation mark
 ```
 The regex pattern above can be visualized as such:
-![Regex-visualizer](image.png)
+![Regex-visualizer](/images/sed_regex.png)
 
 2) More advanced example:
 Extract all values for the `films` key:
