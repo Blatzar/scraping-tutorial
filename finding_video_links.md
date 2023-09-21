@@ -58,4 +58,17 @@ You pretty much only have 3 options when that happens:
 
 1. Try to use a fake / no captcha token. Some sites actually doesn't check that the captcha token is valid.
 2. Use Webview or some kind of browser in the background to load the site in your stead.
-3. Pray it's a captcha without payload, then it's possible to get the captcha key without a browser: [Code example](https://github.com/LagradOst/CloudStream-3/blob/ccb38542f4b5685e511824a975bf16190011c222/app/src/main/java/com/lagradost/cloudstream3/MainAPI.kt#L132-L181)
+3. Pray it's a captcha without payload, then it's possible to get the captcha key without a browser:
+
+Before showing a code example, I'll explain some of the logic so it's easier to visualize what's happening. Our end goal is to make a request to `https://www.google.com/recaptcha/api2/anchor` with some parameters that we can hardcode, since they're not bound to change, but we also need to pass 3 parameters that are dynamic. These include: `k` (stands for key), `co` and `v` (stands for vtoken).
+
+Here is a proof of concept code example of how you can get a captcha token programmatically (this can vary for various websites):
+```sh
+key=$(curl -s "$main_page" | sed -nE "s@.*recaptcha_site_key = '(.*)'.*@\1@p") # the main_page variable in this example is the home page for our website, for example https://zoro.to
+co=$(printf "%s:443" "$main_page" | base64 | tr "=" ".") # here, we would be base64 encoding the following url: https://zoro.to:443 => aHR0cHM6Ly96b3JvLnRvOjQ0Mzo0NDM.
+vtoken=$(curl -s "https://www.google.com/recaptcha/api.js?render=$key" | sed -nE "s_.*po\.src=.*releases/(.*)/recaptcha.*_\1_p")
+recaptcha_token=$(curl -s "https://www.google.com/recaptcha/api2/anchor?ar=1&hl=en\
+		&size=invisible&cb=cs3&k=${key}&co=${co}&v=${vtoken}" |
+  sed -nE 's_.*id="recaptcha-token" value="([^"]*)".*_\1_p')
+curl -s "$main_page/some_url_requiring_token?token=${recaptcha_token}" # now we can use the recaptcha token to pass the verification on the site
+```

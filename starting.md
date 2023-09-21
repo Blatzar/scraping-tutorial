@@ -74,6 +74,11 @@ fun main() {
 }
 ```
 
+**Shell**
+```sh
+curl "https://raw.githubusercontent.com/Blatzar/scraping-tutorial/master/README.md"
+```
+
 
 # **2. Getting the github project description** 
 Scraping is all about getting what you want in a good format you can use to automate stuff.
@@ -175,6 +180,12 @@ fun main() {
 }
 ```
 
+**Shell**
+In order to avoid premature heart attacks, the shell scraping example which relies on regex can be found in the regex section.
+*Note*: 
+Although there are external libraries which can be used to parse html in shellscripts, such as htmlq and pup, these are often slower at parsing than sed (a built-in stream editor command on unix systems).
+This is why using sed with the extended regex flag `-E` is a preferrable way of parsing scraped data when writing shellscripts.
+
 
 ## **Regex:**
 
@@ -253,6 +264,13 @@ fun main() {
     val description = descriptionRegex.find(response.text)?.groups?.get(1)?.value
     println(description)
 }
+```
+
+**Shell**
+Here is an example of how html data can be parsed using sed with the extended regex flag:
+```sh
+printf 'some html data then data-id="123" other data and title here: title="Foo Bar" and more html\n' |
+  sed -nE "s/.*data-id=\"([0-9]*)\".*title=\"([^\"]*)\".*/Title: \2\nID: \1/p" # note that we use .* at the beginning and end of the pattern in order to avoid printing everything that preceeds and follows the actual patterns we are matching
 ```
 
 # Closing words

@@ -158,6 +158,24 @@ And voila! <br/>
 We have successfully parsed our json within kotlin. <br/>
 One thing to note is that you don't need to add all of the json key/value pairs to the structure, you can just have what you need.
 
+**Shell**
+Here is how you could extract the values for the different keys in the json, using sed and tr:
+
+1) Extract the `climate` value:
+```sh
+curl "https://swapi.dev/api/planets/1/" | sed -nE "s/.*\"climate\":\"([^\"]*)\".*/\1/p" # note that we are using the [^\"]* pattern as a replacement for greedy matching in standard regex, as posix sed does not support greedy matching; we are also escaping the quotation mark
+```
+The regex pattern above can be visualized as such:
+![Regex-visualizer](/images/sed_regex.png)
+
+2) More advanced example:
+Extract all values for the `films` key:
+```sh
+curl "https://swapi.dev/api/planets/1/" | sed -nE "s/.*\"films\":\[([^]]*)\].*/\1/p" | sed "s/,/\n/g;s/\"//g" # the first sed pattern has the same logic as in the previous example. for the second one the semicolon character is used for separating 2 sed commands, meaning that this sample command can be translated to human language as: transform all (/g is the global flag, which means it'll perform for all instances on a single line and not just the first one) the commas into new lines, and also delete all quotation marks from the input
+```
+
+Additionally, a pattern I recommend using when parsing json without `jq`, only using posix shell commands, is `tr ',' '\n'`. This makes the json easier to parse using sed.
+
 ### Note
 Even though we set `DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES` as `false` it will still error on missing properties. <br/>
 If a json may or may not include some info, make those properties as nullable in the structure you build.
