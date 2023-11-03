@@ -88,7 +88,7 @@ Otherwise I have patched firefox to remove any detection.
 
 I tracked down the functions making devtools detection possible in the firefox source code and compiled a version which is undetectable by any of these tools.
 
-**Linux build**: https://mega.nz/file/YSAESJzb#x036cCtphjj9kB-kP_EXReTTkF7L7xN8nKw6sQN7gig
+**Linux build**: https://mega.nz/file/iLJlhaqb#FYO2XrMx9U9di_dfeBdbD4yjmhdMcHE9fqrvyyBAh_c
 
 **Windows build**: https://mega.nz/file/ZWAURAyA#qCrJ1BBxTLONHSTdE_boXMhvId-r0rk_kuPJWrPDiwg
 
