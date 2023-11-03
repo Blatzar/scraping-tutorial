@@ -62,9 +62,29 @@ setInterval(() => {
 ```
 Basically running `.constructor("debugger").call();` as much as possible without using while(true) (that locks up everything regardless).
 
+**4.**
+Detecting window size. As you open developer tools your window size will change in a way that can be detected.
+This is both impossible to truly circumvent and simultaneously easily sidestepped.
+To bypass this what you need to do is open the devtools and click settings in top right corner and then select separate window.
+If the devtools are in a separate window they cannot be detected by this technique.
+
 # How to bypass the detection?
 
 If you just want to see the network log that is possible with extensions, see [Web Sniffer](https://chrome.google.com/webstore/detail/web-sniffer/ndfgffclcpdbgghfgkmooklaendohaef?hl=en)
+Otherwise I have patched firefox to remove any detection.
+
+### NEW: The patch is now live in librewolf 119.0!
+
+1. Get librewolf at https://librewolf.net/
+2. Go to `about:config`
+3. Set `librewolf.console.logging_disabled` to true to disable **method 2**
+4. Set `librewolf.debugger.force_detach` to true to disable **method 1** and **method 3**
+5. Make devtools open in a separate window to disable **method 4**
+6. Now you have completely undetectable devtools!
+
+---
+
+*Old release here:*
 
 I tracked down the functions making devtools detection possible in the firefox source code and compiled a version which is undetectable by any of these tools.
 
