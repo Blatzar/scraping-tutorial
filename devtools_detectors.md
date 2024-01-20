@@ -61,12 +61,16 @@ setInterval(() => {
 }, 1e2);
 ```
 Basically running `.constructor("debugger").call();` as much as possible without using while(true) (that locks up everything regardless).
+This is very likely a bug in the browser.
 
 **4.**
 Detecting window size. As you open developer tools your window size will change in a way that can be detected.
 This is both impossible to truly circumvent and simultaneously easily sidestepped.
 To bypass this what you need to do is open the devtools and click settings in top right corner and then select separate window.
 If the devtools are in a separate window they cannot be detected by this technique.
+
+**5.**
+Using source maps to detect the devtools making requests when opened. See https://weizmangal.com/page-js-anti-debug-1/ for further details.
 
 # How to bypass the detection?
 
@@ -80,11 +84,12 @@ Otherwise I have patched firefox to remove any detection.
 3. Set `librewolf.console.logging_disabled` to true to disable **method 2**
 4. Set `librewolf.debugger.force_detach` to true to disable **method 1** and **method 3**
 5. Make devtools open in a separate window to disable **method 4**
-6. Now you have completely undetectable devtools!
+6. Disable source maps in [developer tools settings](https://github.com/Blatzar/scraping-tutorial/assets/46196380/f0ff2f24-6b8d-419c-86ac-9f47d98db749) to disable **method 5**
+7. Now you have completely undetectable devtools!
 
 ---
 
-*Old release here:*
+*Old release here (you can skip this):*
 
 I tracked down the functions making devtools detection possible in the firefox source code and compiled a version which is undetectable by any of these tools.
 
